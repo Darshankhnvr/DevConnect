@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api/"
+  baseURL: "https://devconnect-hcf2.onrender.com/api"
 });
 
 // Fix: Attach interceptor to axiosInstance, not axios
