@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { likePost, unlikePost } from '../redux/thunk/postThunks';
 import { formatDistanceToNow } from 'date-fns';
 import { FiHeart, FiMessageSquare, FiMoreHorizontal, FiTrash2 } from 'react-icons/fi';
+import { toast } from 'sonner';
 
 const PostCard = ({ post, currentUserId, onDelete }) => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const PostCard = ({ post, currentUserId, onDelete }) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
       onDelete(post._id);
+      toast.success('Post deleted successfully!');
     }
   };
 

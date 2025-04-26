@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../redux/thunk/postThunks';
 import { PaperAirplaneIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { toast }  from 'sonner';
 
 export default function CreatePost({ onCreateSuccess }) {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export default function CreatePost({ onCreateSuccess }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ export default function CreatePost({ onCreateSuccess }) {
     
     if (!content.trim() && !image) {
       setError('Please add some content or an image');
+      toast.error("Please add some content or an image")
       return;
     }
 
@@ -31,9 +34,13 @@ export default function CreatePost({ onCreateSuccess }) {
       }
       await dispatch(createPost(formData));
       resetForm();
-      if (onCreateSuccess) onCreateSuccess();
+      if (onCreateSuccess) {
+        onCreateSuccess();
+        toast.success("Post created successfully")
+      }
     } catch (err) {
       setError(err.message || 'Failed to create post');
+      toast.error(err.message || 'Failed to create post')
     } finally {
       setIsSubmitting(false);
     }
@@ -46,12 +53,14 @@ export default function CreatePost({ onCreateSuccess }) {
     // Validate file type
     if (!file.type.match('image.*')) {
       setError('Please upload an image file (JPEG, PNG)');
+      toast.error('Please upload an image file (JPEG, PNG)')
       return;
     }
 
     // Validate file size (5MB limit)
     if (file.size > 5 * 1024 * 1024) {
       setError('Image size should be less than 5MB');
+      toast.error('Image size should be less than 5MB') 
       return;
     }
 

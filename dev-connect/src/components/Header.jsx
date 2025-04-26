@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/thunk/authThunk"; 
+import { toast } from "sonner";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    toast.success("Logout successful!");
     navigate("/login");
   };
 

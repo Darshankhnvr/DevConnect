@@ -5,6 +5,7 @@ import Register from "./pages/register"
 import Home from "./pages/Home"
 import Feed from "./pages/feed"
 import ProtectedRoute from "./components/ProtectedRoute"
+import {Toaster} from "sonner"
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
     element={
       <ProtectedRoute>
         <Feed/>
+        <Toaster richColors />
       </ProtectedRoute>
     }
   />

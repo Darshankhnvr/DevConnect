@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'; // Add this import
 import { logout, updateProfile } from '../redux/thunk/authThunk';
 import { XMarkIcon, PencilSquareIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const ProfileModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
@@ -19,17 +20,20 @@ const ProfileModal = ({ isOpen, onClose }) => {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateProfile(formData));
+    toast.success('Profile updated successfully!');
     setEditMode(false);
     onClose();
   };
 
   const handleLogout = () => {
     dispatch(logout());
+    toast.success('Logout successful!');
     navigate('/login');
     onClose();
   };

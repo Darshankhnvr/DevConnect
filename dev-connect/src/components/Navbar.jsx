@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../redux/slices/authSlice";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -8,6 +9,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    toast.success("Logout successful!");
     navigate("/login");
   };
 
